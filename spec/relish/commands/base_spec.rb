@@ -17,6 +17,14 @@ module Relish
             base.url.should eq("https://#{Relish.default_host}/api")
           end
         end
+        
+        context 'nossl option passed in command line' do
+          # I'm not sure how to allow a command line option without a value, so the 'true'
+          # paramater can actually be anything
+          let(:base) { described_class.new(['--nossl', 'true']) }
+          specify { base.url.should eq("http://#{Relish.default_host}/api") }
+        end
+        
       end
       
       describe '#api_token' do

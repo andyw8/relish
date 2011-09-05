@@ -15,6 +15,7 @@ module Relish
 
       option :api_token, :default => lambda { get_and_store_api_token }
       option :host,      :default => lambda { Relish.default_host }
+      option :nossl
 
       attr_writer :args
       attr_reader :cli_options
@@ -28,7 +29,7 @@ module Relish
       end
 
       def url
-        "https://#{host}/api"
+        (@args.include?('nossl') ? 'http' : 'https') + "://#{host}/api"
       end
 
       def get_param
